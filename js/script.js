@@ -1,4 +1,12 @@
 jQuery(document).ready(function ($) {
+   
+   $('.btn-menu-burger').on('click', function() {
+     if ($('.main-menu').hasClass('reveal-menu-mobile')) {
+        $('.main-menu').removeClass('reveal-menu-mobile');
+    } else {
+         $('.main-menu').addClass('reveal-menu-mobile')
+    }
+   });
 
     let page = 1;
     let maxPages = 1;
@@ -7,7 +15,7 @@ jQuery(document).ready(function ($) {
    /* let photosData = [];
     let currentIndex = 0;*/
     window.photosData = [];
-window.currentIndex = 0;
+    window.currentIndex = 0;
 
 
     // AJAX

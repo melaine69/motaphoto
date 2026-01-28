@@ -91,11 +91,7 @@
             <span class="arrow">&#8594;</span>
         </a>
     </div>
-
-
 </div>
-
-
 	</section>
 	<!-- div pr stocker la catégorie pour l'AJAX -->
 <div class="block-reco">
