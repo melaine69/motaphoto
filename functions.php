@@ -73,7 +73,7 @@ function mota_request_photos() {
             $query->the_post();
             $response[] = array(
                 'link'  => get_permalink(),
-                'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
+                'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'gallery'),// sans 'gallery' = images floues
                 'title' => get_the_title(),
                 'reference' => get_field('reference', get_the_ID()), //comme ref vient du plugin ACF
                 'category'  => wp_get_post_terms(get_the_ID(), 'category')[0]->name ?? '',
@@ -117,7 +117,7 @@ function get_related_photos() {
         $response[] = [
             'id' => $photo->ID,
             'title' => get_the_title($photo->ID),
-            'thumbnail' => get_the_post_thumbnail_url($photo->ID, 'medium'),
+            'thumbnail' => get_the_post_thumbnail_url($photo->ID, 'gallery'),
             'category' => wp_get_post_terms($photo->ID, 'category')[0]->name ?? '',
             'link' => get_permalink($photo->ID),
             'reference' => get_field('reference', $photo->ID) ?? ''

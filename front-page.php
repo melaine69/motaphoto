@@ -15,7 +15,6 @@
 
         <!-- Récupérer les filtres dynamiquement (plugins)-->
         <section class="filters">
-
             <form id="categories" method="POST">
                 <select id="categorie" name="categorie">
                     <option value="" disabled selected>Catégories</option>

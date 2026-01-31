@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-   
+    // MENU BURGER 
    $('.btn-menu-burger').on('click', function() {
      if ($('.main-menu').hasClass('reveal-menu-mobile')) {
         $('.main-menu').removeClass('reveal-menu-mobile');
@@ -58,27 +58,26 @@ jQuery(document).ready(function ($) {
                                     <path d="M22.9999 10.9192C20.4179 10.9192 18.317 13.0199 18.317 15.6021C18.317 16.238 18.8325 16.7536 19.4685 16.7536C20.1046 16.7536 20.6201 16.238 20.6201 15.6021C20.6201 14.2899 21.6876 13.2222 22.9999 13.2222C23.636 13.2222 24.1515 12.7066 24.1515 12.0707C24.1515 11.4346 23.6359 10.9192 22.9999 10.9192Z" fill="white"/>
                                     </svg>
                                     </button>
-                                </div> 
-                                <div class="content-btn-lightbox">
-                                <button class="photo-lightbox" aria-label="Voir lightbox">
-                                     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="17" cy="17" r="17" fill="black"/>
-<line x1="15" y1="10.5" x2="10" y2="10.5" stroke="white"/>
-<line y1="-0.5" x2="5" y2="-0.5" transform="matrix(-1 8.74227e-08 8.74227e-08 1 15 24)" stroke="white"/>
-<line x1="9.5" y1="16" x2="9.5" y2="10" stroke="white"/>
-<line y1="-0.5" x2="6" y2="-0.5" transform="matrix(4.37114e-08 1 1 -4.37114e-08 10 18)" stroke="white"/>
-<line y1="-0.5" x2="5" y2="-0.5" transform="matrix(1 -8.74227e-08 -8.74227e-08 -1 19 10)" stroke="white"/>
-<line y1="-0.5" x2="6" y2="-0.5" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 24 16)" stroke="white"/>
-<line x1="19" y1="23.5" x2="24" y2="23.5" stroke="white"/>
-<line x1="24.5" y1="18" x2="24.5" y2="24" stroke="white"/>
-</svg>
-                                 </button>
-                                </div>              
-                                
                                     <div class="photo-details">
                                         <span class="photo-title">${photo.title}</span>
                                         <span class="photo-cat">${photo.category}</span>
                                     </div>
+                                </div> 
+                                <div class="content-btn-lightbox">
+                                <button class="photo-lightbox" aria-label="Voir lightbox">
+                                     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="17" cy="17" r="17" fill="black"/>
+                                        <line x1="15" y1="10.5" x2="10" y2="10.5" stroke="white"/>
+                                        <line y1="-0.5" x2="5" y2="-0.5" transform="matrix(-1 8.74227e-08 8.74227e-08 1 15 24)" stroke="white"/>
+                                        <line x1="9.5" y1="16" x2="9.5" y2="10" stroke="white"/>
+                                        <line y1="-0.5" x2="6" y2="-0.5" transform="matrix(4.37114e-08 1 1 -4.37114e-08 10 18)" stroke="white"/>
+                                        <line y1="-0.5" x2="5" y2="-0.5" transform="matrix(1 -8.74227e-08 -8.74227e-08 -1 19 10)" stroke="white"/>
+                                        <line y1="-0.5" x2="6" y2="-0.5" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 24 16)" stroke="white"/>
+                                        <line x1="19" y1="23.5" x2="24" y2="23.5" stroke="white"/>
+                                        <line x1="24.5" y1="18" x2="24.5" y2="24" stroke="white"/>
+                                        </svg>
+                                 </button>
+                                </div>              
                             </div>
                         `);
                     });
@@ -91,8 +90,8 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    // Initial load
-loadPhotos(true);
+    // INITIAL LOAD
+    loadPhotos(true);
 
 
     // FILTERS
@@ -119,14 +118,7 @@ loadPhotos(true);
     }
     });
 
-    // CLICK ON EYE REVEAL INFOS PHOTOS
-    $(document).on('click', '.btnEye', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        $(this).closest('.photo-item').toggleClass('show-details'); //closet = remonte dans le DOM pr trouver l'élément parent
-    });
-    // LIGHTBOX OPEN 
+    // LIGHTBOX OPEN & CLOSE
     $(document).on('click', '.photo-lightbox', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -172,19 +164,17 @@ loadPhotos(true);
     // MODAL CONTACT 
     const modal = $('#myModal');
 
-// On cible tous les boutons avec la classe open-modal
-$('.open-modal').on('click', function () {
-    modal.css('display', 'flex');
-    $(this).css('font-weight', '700');
+    // On cible tous les boutons avec la classe open-modal
+    $('.open-modal').on('click', function () {
+        modal.css('display', 'flex');
+        $(this).css('font-weight', '700');
+    });
+
+    // Fermeture du modal
+    modal.on('click', function (e) {
+        if (e.target === this) {
+            modal.css('display', 'none');
+        }
+    });
+
 });
-
-// Fermeture du modal
-modal.on('click', function (e) {
-    if (e.target === this) {
-        modal.css('display', 'none');
-    }
-});
-
-});
-
-
