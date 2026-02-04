@@ -41,20 +41,19 @@
 }
 
 #header {
-  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   background-color: #fff;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
   z-index: 100;
-  justify-content: center;
-  height: 80px;
+  display: flex;
+  align-items: center;
   width: 100%;
-  max-width: 1440px;
-  -webkit-box-shadow: 0 11px 12px -7px rgba(126, 126, 126, 0.226);
-  box-shadow: 0 11px 12px -7px rgba(126, 126, 126, 0.226)
+  height: 80px;
+  box-shadow: 0 11px 12px -7px rgba(126, 126, 126, 0.226);
 }
+
 
 .container-header {
   display: flex;
@@ -62,14 +61,15 @@
   align-items: center;
   width: 100%;
   max-width: 1440px;
-  padding: 0 80px
+  padding: 0 64px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .container-header img {
   width: 220px;
   height: auto;
   display: flex;
-  justify-content: right
 }
 
 .main-menu {
@@ -82,6 +82,25 @@
   display: none;
 }
 
+.btn-menu-burger svg path {
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Barre du haut */
+.btn-menu-burger.is-open svg path:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+/* Barre du milieu */
+.btn-menu-burger.is-open svg path:nth-child(2) {
+  opacity: 0;
+}
+
+/* Barre du bas */
+.btn-menu-burger.is-open svg path:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
 .main-menu ul {
   list-style: none;
   padding: 0;
@@ -122,20 +141,29 @@
 }
 
 @media (max-width: 768px) {
+
+  .container-header {
+    padding: 0px 32px;
+  }
   .btn-menu-burger {
     display: flex;
     background-color: transparent;
     border: none;
   }
-
+  
+ 
   .main-menu {
-    background-color: red;
-    top: 70px;
-    position: absolute;
+    position: fixed;
+    top: 80px;
     left: 0;
-    height: 100vh;
     width: 100%;
+    height: 100vh;
+    background-color: #E00000;
     display: none;
+    
+  }
+  #menu-menu-1 {
+    text-align: center;
   }
 
   .main-menu.reveal-menu-mobile {
@@ -213,7 +241,8 @@
 
 .hero {
   width: 100%;
-  height: 500px;
+  max-width: 100%;
+  height: 962px;
   background-image: url('assets/default-hero.jpeg');
   background-size: cover;
   background-position: center;
@@ -225,7 +254,7 @@
 
 .hero-title {
   font-family: "Space Mono", monospace;
-  font-weight: 700px;
+  font-weight: 700;
   font-size: 96px;
   text-transform: uppercase;
   color: transparent;
@@ -233,9 +262,28 @@
   text-align: center;
   -webkit-text-stroke: 2px white;
 }
+@media (max-width: 768px) {
+.hero {
+  height: 495px;
+}
+.hero-title {
+  font-size: 36px;
+}
+}
 
 .grid {
-  padding: 64px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 64px 64px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+.grid {
+  padding: 32px 32px;
+  max-width: 100%;
+}
 }
 
 .filters {
@@ -254,7 +302,7 @@
 
 .filters select {
   padding: 16px 8px;
-  width: 260px;
+  width: 50px;
   border-radius: 8px;
   border-color: #B8BBC2;
 }
@@ -264,12 +312,26 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin-top: 50px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
+
 
 .photo-grid img {
   width: 100%;
   height: 495px;
   object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+.photo-grid {
+   grid-template-columns: 1fr;
+}
+.photo-grid img {
+  height: 295px;
+}
 }
 
 .container-load-more {
@@ -374,7 +436,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.85);
   z-index: 999;
@@ -654,5 +716,4 @@
   width: 100%;
   height: 100%;
   padding: 0 20px;
-  max-width: 1440px
 }

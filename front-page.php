@@ -11,10 +11,10 @@
             </div>
         </div>
     </section>
-    <div class="grid">
+    <section class="grid">
 
         <!-- Récupérer les filtres dynamiquement (plugins)-->
-        <section class="filters">
+        <div class="filters">
             <form id="categories" method="POST">
                 <select id="categorie" name="categorie">
                     <option value="" disabled selected>Catégories</option>
@@ -51,16 +51,16 @@
                 </select>
             </form>
 
-        </section>
-        <section class="photo-grid">
+        </div>
+        <div class="photo-grid">
 
-        </section>
+        </div>
        
         <div class="container-load-more">
             <button id="load-more"> Charger plus</button>
         </div>
         
-    </div>
+    </section>
 </main>
  
 <?php get_footer();?>
