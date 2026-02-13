@@ -12,10 +12,9 @@
         </div>
     </section>
     <section class="grid">
-
         <!-- Récupérer les filtres dynamiquement (plugins)-->
         <div class="filters">
-        
+
             <form id="categories" method="POST">
                 <select id="categorie" name="categorie">
                     <option value="" disabled selected>Catégories</option>
@@ -52,17 +51,26 @@
                 </select>
             </form>
 
+            <form id="annee" method="POST">
+                <select id="sort-by" name="sort">
+                    <option value="" disabled selected>Trier par</option>
+                    <option value="all">Tous</option>
+                    <option value="date_desc">Plus récentes</option>
+                    <option value="date_asc">Plus anciennes</option>
+
+                </select>
+            </form>
         </div>
         <div class="photo-grid">
 
         </div>
-       
+
         <div class="container-load-more">
             <button id="load-more"> Charger plus</button>
         </div>
-        
+
     </section>
 </main>
- 
-<?php get_footer();?>
- <?php get_template_part('lightbox'); ?>
+
+<?php get_footer(); ?>
+<?php get_template_part('lightbox'); ?>

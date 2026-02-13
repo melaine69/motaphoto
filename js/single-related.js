@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){
+jQuery(document).ready(function ($) {
     const singleContainer = $('#single-photo');
     if (singleContainer.length) {
         const category = singleContainer.data('category');
@@ -12,9 +12,9 @@ jQuery(document).ready(function($){
                 category: category,
                 current_id: current_id
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.photos.length) {
-                    response.photos.forEach(function(photo, index){
+                    response.photos.forEach(function (photo, index) {
                         // Ajouter à photosData pour la lightbox
                         const dataIndex = photosData.length;
                         photosData.push(photo);

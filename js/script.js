@@ -1,19 +1,15 @@
 jQuery(document).ready(function ($) {
     // MENU BURGER 
-  $('.btn-menu-burger').on('click', function() {
+    $('.btn-menu-burger').on('click', function () {
 
-    $('.main-menu').toggleClass('reveal-menu-mobile');
-    $(this).toggleClass('is-open');
+        $('.main-menu').toggleClass('reveal-menu-mobile');
+        $(this).toggleClass('is-open');
 
-});
-
-
+    });
     let page = 1;
     let maxPages = 1;
 
     // LIGHTBOX 
-   /* let photosData = [];
-    let currentIndex = 0;*/
     window.photosData = [];
     window.currentIndex = 0;
 
@@ -22,11 +18,11 @@ jQuery(document).ready(function ($) {
     function loadPhotos(reset = false) {
         let categorie = $('#categorie').val();
         let format = $('#format').val();
+        let sort = $('#sort-by').val();
 
         if (reset) {
             page = 1;
             photosData = [];
-            $('.photo-grid').empty();
             $('#load-more').show();
         }
         $.ajax({
@@ -36,21 +32,26 @@ jQuery(document).ready(function ($) {
                 action: 'request_photos',
                 categorie: categorie,
                 format: format,
+                sort: sort,
                 paged: page
             },
             success: function (response) {
+
                 maxPages = response.max;
 
-                if (response.photos.length > 0) {
-                    response.photos.forEach(function (photo) {
+                if (reset) {
+                    let newGrid = $('<div class="photo-grid"></div>');
 
-                        const index = photosData.length;
-                        photosData.push(photo);
+                    if (response.photos.length > 0) {
+                        response.photos.forEach(function (photo) {
 
-                        $('.photo-grid').append(`
-                            <div class="photo-item" data-index="${index}" data-link="${photo.link}">
-                                <img src="${photo.thumbnail}" alt="${photo.title}">
-                                <div class="content-eye"> 
+                            const index = photosData.length;
+                            photosData.push(photo);
+
+                            newGrid.append(`
+                    <div class="photo-item" data-index="${index}" data-link="${photo.link}">
+                        <img src="${photo.thumbnail}" alt="${photo.title}">
+                       <div class="content-eye"> 
                                     <button class="btnEye" aria-label="Aperçu details">
                                     <svg width="46" height="32" viewBox="0 0 46 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M45.9081 15.1504C41.9937 5.94703 33.0015 0 23 0C12.9985 0 4.00649 5.94685 0.0919102 15.1504C-0.0306367 15.4385 -0.0306367 15.7638 0.0919102 16.0518C4.00622 25.2563 12.9983 31.2038 23 31.2038C33.0019 31.2038 41.994 25.2563 45.9081 16.0518C46.0306 15.7638 46.0306 15.4385 45.9081 15.1504ZM23 28.9008C14.088 28.9008 6.05933 23.6968 2.40862 15.6013C6.05942 7.50654 14.0883 2.30314 23 2.30314C31.9119 2.30314 39.9407 7.50654 43.5914 15.6011C39.9407 23.6967 31.912 28.9008 23 28.9008Z" fill="white"/>
@@ -78,15 +79,34 @@ jQuery(document).ready(function ($) {
                                         </svg>
                                  </button>
                                 </div>              
-                            </div>
-                        `);
-                    });
+                    </div>
+                `);
+                        });
+                    }
+                    $('.photo-grid').replaceWith(newGrid);
+
+                } else {
+
+                    if (response.photos.length > 0) {
+                        response.photos.forEach(function (photo) {
+
+                            const index = photosData.length;
+                            photosData.push(photo);
+
+                            $('.photo-grid').append(`
+                    <div class="photo-item" data-index="${index}" data-link="${photo.link}">
+                        <img src="${photo.thumbnail}" alt="${photo.title}">
+                    </div>
+                `);
+                        });
+                    }
                 }
 
                 if (page >= maxPages) {
                     $('#load-more').hide();
                 }
             }
+
         });
     }
 
@@ -95,9 +115,14 @@ jQuery(document).ready(function ($) {
 
 
     // FILTERS
-    $('#categorie, #format').on('change', function () {
-        loadPhotos(true);
+    let filterTimeout;
+    $('#categorie, #format, #sort-by').on('change', function () {
+        clearTimeout(filterTimeout);
+        filterTimeout = setTimeout(function () {
+            loadPhotos(true);
+        }, 200); // 200ms de délai
     });
+
 
     // LOAD MORE
     $('#load-more').on('click', function () {
@@ -107,15 +132,15 @@ jQuery(document).ready(function ($) {
 
     // SINGLE PAGE OPEN
     $(document).on('click', '.photo-item', function (e) {
-    // Si on clique sur une icône, on ne redirige pas
-    if ($(e.target).closest('.btnEye, .photo-lightbox').length) {
-        return; // ignore
-    }
+        // Si on clique sur une icône, on ne redirige pas
+        if ($(e.target).closest('.btnEye, .photo-lightbox').length) {
+            return; // ignore
+        }
 
-    const link = $(this).data('link');
-    if (link) {
-        window.location.href = link; // redirection
-    }
+        const link = $(this).data('link');
+        if (link) {
+            window.location.href = link; // redirection
+        }
     });
 
     // LIGHTBOX OPEN & CLOSE

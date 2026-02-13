@@ -1,13 +1,6 @@
 <?php get_header(); ?>
 
 <main>
-    <!--<section class="hero">
-        <div class="hero-content">
-            <h1>Photographe event</h1>
-        </div>
-    </section>
-
-    <div class="photo-grid"></div>-->
 
     <?php
     if ( have_posts() ) :
