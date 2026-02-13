@@ -301,11 +301,20 @@
 }
 
 .filters select {
-  padding: 16px 8px;
-  width: 50px;
+  padding: 16px;
+  width: 260px;
   border-radius: 8px;
   border-color: #B8BBC2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
+
+.filters select:hover, .filters select:focus{
+    outline: none;
+    border-color: #215AFF;
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .filters {
     flex-direction: column;
@@ -316,25 +325,13 @@
     -moz-appearance: none;
     width: 260px;
     padding: 18px 50px 18px 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: 2px solid #2f5fff;
-    border-radius: 20px;
     background-color: #fff;
     cursor: pointer;
-
     /* Flèche custom */
     background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5'/></svg>");
     background-repeat: no-repeat;
     background-position: right 20px center;
-
     transition: 0.3s ease;
-}
-
-/* Focus */
-.filters select:focus {
-    outline: none;
-    border-color: #e30613;
 }
 }
 .photo-grid {
@@ -565,31 +562,42 @@
 }
 
 /* SINGLE PHOTO */
+
 .single-content {
-  padding: 0 64px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 64px;
+  padding-right: 64px;
+  padding-top: 32px;
+  box-sizing: border-box;
+}
+#single-photo {
+  padding-top: 64px;
+}
+@media (max-width: 768px) {
+.single-content {
+  padding: 32px 32px;
+  margin-top: 32px;
+  max-width: 100%;
+}
 }
 
 .photo-post {
   display: flex;
+  justify-content: space-between;
+  padding: 64px 0px;
 }
-
-.photo-descp,
-.photo-container {
-  width: 50%;
+@media (max-width: 768px) {
+.photo-post {
+  padding: 32px 0px;
+}
 }
 
 .photo-descp {
   align-self: end;
 }
 
-.photo-descp:after {
-  content: "";
-  position: absolute;
-  background-color: black;
-  width: 564px;
-  display: block;
-  height: 1px;
-}
 
 .photo-descp h1 {
   font-family: "Space Mono";
@@ -610,12 +618,41 @@
 .photo-container img {
   width: 100%;
   height: 844px;
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+
+  .photo-post {
+    flex-direction: column-reverse;
+  }
+
+  .photo-descp {
+    align-self: start;
+  }
+
+  .photo-container img {
+    height: 397px;
+  }
+
+  .photo-descp h1 {
+    font-size: 46px;
+  }
+
 }
 
 .second-block {
   height: 118px;
   display: flex;
   justify-content: space-between;
+  position: relative;
+}
+.second-block:before {
+  content: "";
+  position: absolute;
+  background-color: black;
+  width: 100vw;
+  display: block;
+  height: 1px;
 }
 
 .second-block a {
@@ -631,8 +668,39 @@
 
 .block-contact p {
   font-family: "Poppins";
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
+}
+
+@media (max-width: 768px) {
+.block-nav-photo {
+  display: none;
+
+}
+.second-block {
+  height: auto;
+  justify-content: center;
+}
+
+  .block-contact {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 0px;
+  }
+
+  .block-contact p {
+    text-align: left;
+    width: 100%; /* important */
+  }
+
+#contact-single {
+  font-size: 12px;
+  color: black!important;
+  width: 263px;
+  height: 50px;
+}
+
 }
 
 #contact-single {
@@ -648,7 +716,6 @@
 #contact-single:hover {
   opacity: 0.7;
 }
-
 
 .nav-photo img {
   position: absolute;
@@ -675,7 +742,7 @@
   content: "";
   position: absolute;
   background-color: black;
-  width: 100%;
+  width: 100vw;
   display: block;
   height: 1px;
   bottom: 0;
@@ -684,6 +751,11 @@
 .photo-grid-single {
   display: flex;
   gap: 20px;
+}
+@media (max-width: 768px) {
+  .photo-grid-single {
+    flex-wrap: wrap;
+  }
 }
 
 .photo-item.single {
@@ -694,6 +766,11 @@
   width: 100%;
   height: 495px;
   object-fit: cover;
+}
+@media (max-width: 768px) {
+  .photo-item.single img {
+    height: 278px;
+  }
 }
 
 .block-reco {
@@ -709,21 +786,31 @@
   text-transform: uppercase;
   font-family: "Space Mono", monospace;
 }
+@media (max-width: 768px) {
+  .block-reco  {
+    padding: 0;
+  }
+  .block-reco p {
+    text-align: center;
+  }
+}
 
 #footer {
   border-top: 1px solid #000;
 }
-#footer ul {
-    list-style: none;
-    text-align: center;
-}
 .footer-container {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 20px;
+}
+#footer ul {
+    display: flex;
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
 }
 
 #footer a {
@@ -747,7 +834,11 @@
 
 
 @media (max-width: 768px) {
-  .footer-container {
+  #footer {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+  #footer ul {
     flex-direction: column;
 }
 }
