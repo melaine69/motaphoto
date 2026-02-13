@@ -153,7 +153,7 @@ jQuery(document).ready(function ($) {
         openLightbox(currentIndex);
     });
 
-    function openLightbox(index) {
+   window.openLightbox = function(index) {
         const photo = photosData[index];
 
         $('#lightbox-img').attr('src', photo.thumbnail);
@@ -164,7 +164,7 @@ jQuery(document).ready(function ($) {
         $('#lightbox').addClass('active');
     }
 
-    function closeLightbox() {
+    window.closeLightbox = function(){
         $('#lightbox').removeClass('active');
     }
     // LIGHTBOX NAVIGATION
@@ -193,12 +193,18 @@ jQuery(document).ready(function ($) {
     $('.open-modal').on('click', function () {
         modal.css('display', 'flex');
         $(this).css('font-weight', '700');
+        // Récupère la réf depuis la single page
+        let photoRef = $('#photo-reference').text().trim();
+
+        // Remplit le champ du form
+        $('#ref-photo').val(photoRef);
     });
 
     // Fermeture du modal
     modal.on('click', function (e) {
         if (e.target === this) {
             modal.css('display', 'none');
+            $('#ref-photo').val(''); // reset du champ réf
         }
     });
 

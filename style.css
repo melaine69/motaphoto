@@ -680,6 +680,7 @@ main {
 }
 
 .photo-container img {
+  max-width: 563px;
   width: 100%;
   height: 844px;
   object-fit: cover;
@@ -830,7 +831,9 @@ main {
 }
 
 .photo-item.single {
-  width: 100% !important;
+  width: 100%!important;
+  position: relative;
+
 }
 
 .photo-item.single img {

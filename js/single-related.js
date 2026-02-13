@@ -1,28 +1,35 @@
 jQuery(document).ready(function ($) {
+
     const singleContainer = $('#single-photo');
-    if (singleContainer.length) {
-        const category = singleContainer.data('category');
-        const current_id = singleContainer.data('current-id') || $('#post-id').val();
+    if (!singleContainer.length) return;
 
-        $.ajax({
-            url: mota_js.ajax_url,
-            type: 'POST',
-            data: {
-                action: 'get_related_photos',
-                category: category,
-                current_id: current_id
-            },
-            success: function (response) {
-                if (response.photos.length) {
-                    response.photos.forEach(function (photo, index) {
-                        // Ajouter à photosData pour la lightbox
-                        const dataIndex = photosData.length;
-                        photosData.push(photo);
+    const category = singleContainer.data('category');
+    const current_id = singleContainer.data('current-id');
 
-                        $('.photo-grid-single').append(`
-                            <div class="photo-item single" data-index="${dataIndex}" data-link="${photo.link}">
-                                <img src="${photo.thumbnail}" alt="${photo.title}">
-                                 <div class="content-eye"> 
+    // Utiliser les variables globales de la lightbox commune
+    window.photosData = window.photosData || [];
+
+    $.ajax({
+        url: mota_js.ajax_url,
+        type: 'POST',
+        data: {
+            action: 'get_related_photos',
+            category: category,
+            current_id: current_id
+        },
+        success: function (response) {
+
+            if (!response.photos.length) return;
+
+            response.photos.forEach(function (photo) {
+
+                const dataIndex = photosData.length;
+                photosData.push(photo);
+
+                const $photoItem = $(`
+                    <div class="photo-item single" data-index="${dataIndex}">
+                        <img src="${photo.thumbnail}" alt="${photo.title}">
+                        <div class="content-eye"> 
                                     <button class="btnEye" aria-label="Aperçu details">
                                     <svg width="46" height="32" viewBox="0 0 46 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M45.9081 15.1504C41.9937 5.94703 33.0015 0 23 0C12.9985 0 4.00649 5.94685 0.0919102 15.1504C-0.0306367 15.4385 -0.0306367 15.7638 0.0919102 16.0518C4.00622 25.2563 12.9983 31.2038 23 31.2038C33.0019 31.2038 41.994 25.2563 45.9081 16.0518C46.0306 15.7638 46.0306 15.4385 45.9081 15.1504ZM23 28.9008C14.088 28.9008 6.05933 23.6968 2.40862 15.6013C6.05942 7.50654 14.0883 2.30314 23 2.30314C31.9119 2.30314 39.9407 7.50654 43.5914 15.6011C39.9407 23.6967 31.912 28.9008 23 28.9008Z" fill="white"/>
@@ -30,10 +37,10 @@ jQuery(document).ready(function ($) {
                                     <path d="M22.9999 10.9192C20.4179 10.9192 18.317 13.0199 18.317 15.6021C18.317 16.238 18.8325 16.7536 19.4685 16.7536C20.1046 16.7536 20.6201 16.238 20.6201 15.6021C20.6201 14.2899 21.6876 13.2222 22.9999 13.2222C23.636 13.2222 24.1515 12.7066 24.1515 12.0707C24.1515 11.4346 23.6359 10.9192 22.9999 10.9192Z" fill="white"/>
                                     </svg>
                                     </button>
-                                     <div class="photo-details">
-                                    <span class="photo-title">${photo.title}</span>
-                                    <span class="photo-cat">${photo.category}</span>
-                                </div>
+                                    <div class="photo-details">
+                                        <span class="photo-title">${photo.title}</span>
+                                        <span class="photo-cat">${photo.category}</span>
+                                    </div>
                                 </div> 
                                 <div class="content-btn-lightbox">
                                 <button class="photo-lightbox" aria-label="Voir lightbox">
@@ -49,14 +56,24 @@ jQuery(document).ready(function ($) {
                                         <line x1="24.5" y1="18" x2="24.5" y2="24" stroke="white"/>
                                         </svg>
                                  </button>
-                                </div>   
-                            </div>
-                        `);
-                    });
-                }
-            }
-        });
-    }
+                                </div>            
+                    </div>
+                `);
+
+                singleContainer.find('.photo-grid-single').append($photoItem);
+            });
+        }
+    });
+
+    // IMPORTANT : utiliser la même classe que l'autre grille
+    singleContainer.on('click', '.photo-lightbox', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const index = $(this).closest('.photo-item').data('index');
+        currentIndex = index;
+
+        openLightbox(currentIndex);
+    });
 
 });
-
